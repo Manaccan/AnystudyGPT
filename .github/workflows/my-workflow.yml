@@ -1,3 +1,4 @@
+
 name: Secure Workflow
 
 on: push  # Trigger when code is pushed
