@@ -1,6 +1,6 @@
-name: Example Workflow
+name: Secure Workflow
 
-on: push  # Run workflow when code is pushed
+on: push  # Trigger when code is pushed
 
 jobs:
   example_job:
@@ -9,5 +9,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run a simple command
-        run: echo "Hello from GitHub Actions!"
+      - name: Use API Key
+        run: |
+          echo "API Key is set"
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Verify Environment Variable
+        run: echo "Using secret key in script"
