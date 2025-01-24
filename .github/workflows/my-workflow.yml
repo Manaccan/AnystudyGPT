@@ -1,0 +1,13 @@
+name: Example Workflow
+
+on: push  # Run workflow when code is pushed
+
+jobs:
+  example_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run a simple command
+        run: echo "Hello from GitHub Actions!"
