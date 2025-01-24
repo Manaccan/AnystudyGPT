@@ -5,7 +5,8 @@ async function sendMessage() {
     responseDiv.innerHTML = `You asked: ${userInput}`;
 
     // Ensure the API key is set correctly as a string
-    const apiKey = "YOUR_API_KEY_HERE";
+    const apiKey = process.env.OPENAI_API_KEY;
+
     const endpoint = "https://api.openai.com/v1/chat/completions";
 
     const requestData = {
