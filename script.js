@@ -4,26 +4,22 @@ async function sendMessage() {
 
     responseDiv.innerHTML = `You asked: ${userInput}`;
 
-    // Ensure the API key is set correctly as a string
-    const apiKey = process.env.OPENAI_API_KEY;
-
+    // API endpoint and key retrieval from environment
     const endpoint = "https://api.openai.com/v1/chat/completions";
-
-    const requestData = {
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: userInput }],
-        max_tokens: 100,
-        temperature: 0.7
-    };
-
+    
     try {
         const response = await fetch(endpoint, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apiKey}`,  // Use the apiKey variable here
+                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,  // Using environment variable
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(requestData)
+            body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: "user", content: userInput }],
+                max_tokens: 100,
+                temperature: 0.7
+            })
         });
 
         if (!response.ok) {
@@ -36,5 +32,4 @@ async function sendMessage() {
         responseDiv.innerHTML += `<br>Error: ${error.message}`;
     }
 }
-
 
