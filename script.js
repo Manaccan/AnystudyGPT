@@ -1,35 +1,35 @@
-async function sendMessage() {
-    const userInput = document.getElementById("userInput").value;
-    const responseDiv = document.getElementById("response");
+document.querySelector("button").addEventListener("click", async function() {
+    const userInput = document.querySelector("#user-input").value;
+    const responsePanel = document.querySelector("#response-panel");
 
-    responseDiv.innerHTML = `You asked: ${userInput}`;
+    if (!userInput) {
+        responsePanel.innerHTML = "Please enter a question.";
+        return;
+    }
 
-    // API endpoint and key retrieval from environment
-    const endpoint = "https://api.openai.com/v1/chat/completions";
-    
+    responsePanel.innerHTML = "Thinking...";
+
     try {
-        const response = await fetch(endpoint, {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,  // Using environment variable
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${YOUR_API_KEY_HERE}`
             },
             body: JSON.stringify({
                 model: "gpt-3.5-turbo",
                 messages: [{ role: "user", content: userInput }],
-                max_tokens: 100,
-                temperature: 0.7
+                max_tokens: 100
             })
         });
 
         if (!response.ok) {
-            throw new Error("API request failed");
+            throw new Error(`API error: ${response.status}`);
         }
 
         const data = await response.json();
-        responseDiv.innerHTML += `<br>GPT Response: ${data.choices[0].message.content}`;
+        responsePanel.innerHTML = data.choices[0].message.content;
     } catch (error) {
-        responseDiv.innerHTML += `<br>Error: ${error.message}`;
+        responsePanel.innerHTML = `Error: ${error.message}`;
     }
-}
-
+});
