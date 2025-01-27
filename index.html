@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to Anystudy GPT</h1>
-    <textarea id="userInput" placeholder="Type your question here..."></textarea>
-    <button onclick="sendMessage()">Send</button>
-    <div id="response"></div>
+    <header>
+        <h1>Welcome to Anystudy GPT</h1>
+        <p>Your AI-powered study companion, ready to assist you anytime!</p>
+    </header>
+
+    <div class="container">
+        <div class="panel question">
+            <input type="text" id="user-input" placeholder="Type your question here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <div class="panel response" id="response-panel">
+            <p>Response will appear here...</p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
